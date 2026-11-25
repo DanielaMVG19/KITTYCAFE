@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cafetería Hello Kitty. Café, repostería y desayunos para pedir en línea.">
+  <title>Cafetería Hello Kitty | Café y repostería</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="shell nav">
+      <a href="/" class="brand"><span class="bow" aria-hidden="true"><i></i></span><span>Hello Kitty <small>Cafetería</small></span></a>
+      <nav aria-label="Paneles">
+        <a href="/" id="nav-menu">Menú</a>
+        <a href="/admin" id="nav-admin">Administración</a>
+      </nav>
+      <button type="button" id="cart-open" class="button small">Carrito <span id="cart-count">0</span></button>
+    </div>
+  </header>
+  <main id="customer">
+    <section class="hero">
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Café y repostería</p>
+          <h1>Un café<br>con moñito<span>.</span></h1>
+          <p class="intro">Latte de fresa, galletas Kitty y postres para acompañar tu café.</p>
+          <a class="button" href="#menu">Ver el menú</a>
+        </div>
+        <div class="hero-photo">
+          <img src="/static/fotos/latte.webp" alt="Latte de fresa decorado con una figurita de Hello Kitty">
+        </div>
+      </div>
+    </section>
+    <section id="menu" class="shell menu">
+      <div class="section-heading">
+        <h2>Nuestro menú</h2>
+        <span class="currency">Precios en MXN</span>
+      </div>
+      <div id="filters" class="filters" aria-label="Categorías del menú"></div>
+      <div id="menu-grid" class="menu-grid"><p>Cargando menú…</p></div>
+    </section>
+  </main>
+  <main class="shell admin" id="admin" hidden>
+    <header class="section-heading">
+      <div><p class="eyebrow">Administración</p><h1>Gestión de platillos</h1></div>
+      <button type="button" id="logout" class="button outline" hidden>Cerrar sesión</button>
+    </header>
+    <form id="login" class="panel" hidden>
+      <h2>Iniciar sesión</h2>
+      <label>Contraseña de administrador<input type="password" name="password" autocomplete="current-password" required></label>
+      <button class="button">Entrar</button>
+      <p class="message" id="login-message" role="status"></p>
+    </form>
+    <section id="manager" hidden>
+      <div class="manager-bar">
+        <h2>Platillos del menú</h2>
+        <button type="button" id="new-dish" class="button">Agregar platillo</button>
+      </div>
+      <p id="admin-message" class="message" role="status"></p>
+      <div id="admin-list" class="admin-list"></div>
+    </section>
+  </main>
+  <footer><div class="shell"><span class="brand">Cafetería Hello Kitty</span><span>Café y repostería</span></div></footer>
+  <dialog id="cart" class="drawer" aria-labelledby="cart-title">
+    <div class="dialog-head"><h2 id="cart-title">Tu pedido</h2><button type="button" class="close" data-close="cart" aria-label="Cerrar carrito">×</button></div>
+    <div id="cart-items"></div>
+    <div id="order-summary" hidden>
+      <div class="total"><strong>Total</strong><strong id="cart-total"></strong></div>
+      <form id="checkout">
+        <label>Método de pago
+          <select name="method"><option>Efectivo</option><option>Tarjeta</option></select>
+        </label>
+        <p class="muted">Pago simulado. Se descargará un ticket en TXT.</p>
+        <button class="button full">Confirmar pedido y descargar ticket</button>
+      </form>
+    </div>
+    <p id="cart-message" class="message" role="status"></p>
+    <a id="ticket-link" class="button outline full" hidden>Descargar ticket otra vez</a>
+  </dialog>
+  <dialog id="dish-dialog" aria-labelledby="dish-title">
+    <div class="dialog-head"><h2 id="dish-title">Agregar platillo</h2><button type="button" class="close" data-close="dish-dialog" aria-label="Cerrar formulario">×</button></div>
+    <form id="dish-form">
+      <label>Nombre<input name="name" required maxlength="70"></label>
+      <div class="form-pair">
+        <label>Categoría<select name="category" required><option>Bebidas</option><option>Repostería</option><option>Desayunos</option></select></label>
+        <label>Precio (MXN)<input name="price" type="number" min="0.01" max="999999.99" step="0.01" required></label>
+      </div>
+      <label>Descripción<textarea name="description" maxlength="280" rows="3" required></textarea></label>
+      <label>Foto <span id="photo-help" class="muted"></span><input name="photo" type="file" accept="image/jpeg,image/png,image/webp"></label>
+      <button class="button">Guardar platillo</button>
+      <p id="dish-message" class="message" role="status"></p>
+    </form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title">
+    <div class="dialog-head"><h2 id="delete-title">Eliminar platillo</h2><button type="button" class="close" data-close="delete-dialog" aria-label="Cerrar confirmación">×</button></div>
+    <p id="delete-description"></p>
+    <form id="delete-form">
+      <button type="button" class="button outline" data-close="delete-dialog">Cancelar</button>
+      <button class="button">Eliminar</button>
+    </form>
+    <p id="delete-message" class="message" role="status"></p>
+  </dialog>
+  <div id="toast" role="status" class="toast" hidden></div>
+</body>
+</html>
